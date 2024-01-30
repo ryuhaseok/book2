@@ -11,8 +11,8 @@ public class BookApp {
 		//authorDao.authorInsert("서장훈", "농구선수");
 		//authorDao.authorInsert("안정환", "축구선수");
 		
-		AuthorVo authorVo = new AuthorVo("황일영", "개발강사");
-		authorDao.authorInsert(authorVo);
+		//AuthorVo authorVo = new AuthorVo("황일영", "개발강사");
+		//authorDao.authorInsert(authorVo);
 		
 		//authorDao.authorDelete(14);
 		

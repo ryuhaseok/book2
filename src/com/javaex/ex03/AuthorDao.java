@@ -28,7 +28,6 @@ public class AuthorDao {
 	private void getConnection() {
 		// 0. import java.sql.*;
 		
-		
 		try {
 		
 		// 1. JDBC 드라이버 (Oracle) 로딩
@@ -59,36 +58,36 @@ public class AuthorDao {
 			}
 	}// close()
 	
-		//작가등록
-			public int authorInsert(AuthorVo authorVo) {
-				
-				int count = -1; //정상적으로 진행되지 못 했을 때 -1
-				
-				this.getConnection();
-				try {
-				// 3. SQL문 준비 / 바인딩 / 실행
-					String query = "";
-					query +=" insert into author ";
-					query +=" values(null, ?, ?) ";
-					
-					pstmt = conn.prepareStatement(query);
-					pstmt.setString(1, authorVo.getAuthorName());
-					pstmt.setString(2, authorVo.getAuthorDesc());
-					
-					count = pstmt.executeUpdate();
-					
-					System.out.println(count + "건 등록되었습니다.");
-					
-				// 4.결과처리
-				} catch (SQLException e) {
-					System.out.println("error:" + e);
-					
-				}
-				
-				this.close();
-				
-				return count;
-			}//authorInsert()
+	//작가등록
+	public int authorInsert(AuthorVo authorVo) {
+		
+		int count = -1; //정상적으로 진행되지 못 했을 때 -1
+		
+		this.getConnection();
+		try {
+		// 3. SQL문 준비 / 바인딩 / 실행
+			String query = "";
+			query +=" insert into author ";
+			query +=" values(null, ?, ?) ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, authorVo.getAuthorName());
+			pstmt.setString(2, authorVo.getAuthorDesc());
+			
+			count = pstmt.executeUpdate();
+			
+			System.out.println(count + "건 등록되었습니다.");
+			
+		// 4.결과처리
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+			
+		}
+		
+		this.close();
+		
+		return count;
+	}//authorInsert()
 	
 	
 	//작가리스트
@@ -135,17 +134,31 @@ public class AuthorDao {
 	}//authorList()
 	
 	//작가수정
-	public int authorUpdate() {
+	public int authorUpdate(String name, String desc, int id) {
 		int count = -1;
 		
-
 		try {
 			this.getConnection();
 			
 			// 3. SQL문 준비 / 바인딩 / 실행
+			String query = "";
+			query += " update author ";
+			query += " set  author_name = ?, ";
+			query += " 		author_desc = ? ";
+			query += " where author_id = ? ";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, desc);
+			pstmt.setInt(3, id);
+			
+			count = pstmt.executeUpdate();
+				 
+			System.out.println(count + "건 수정되었습니다.");
 			
 			// 4.결과처리
-			
+		}  catch (SQLException e) {
+			System.out.println("error:" + e);
 			// 5. 자원정리
 
 		}  finally {
